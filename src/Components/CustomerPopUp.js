@@ -53,7 +53,7 @@ export default function CustomerPopUp(props) {
     <Popup
     modal
     nested
-    trigger={ <button >button</button>} position="right center">
+    trigger={ <Button variant="contained" color="primary">Trainings and info </Button>} position="right center">
   
   {close => (
       <div className="modal">
@@ -88,8 +88,9 @@ export default function CustomerPopUp(props) {
             Personal trainigs
     </Typography>
 
-    <Button onClick={getCustomerTrainigs}> get Customer Trainigs</Button>
-
+{ loaded===false &&
+    <Button variant="contained" color="secondary" onClick={getCustomerTrainigs}> get Customer Trainigs</Button>
+}
 
             { 
               loaded && 

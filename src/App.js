@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {Routes, Route} from "react-router-dom";
+import Calendar from './Components/Calendar';
+import Raport from './Components/Raport';
+import Userlist from './Components/Userlist';
+import Menu from './Components/Menu';
+import Traininglist from './Components/Traininglist';
 
 function App() {
+
+  //yhteiset funktiot 
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+<div className="App">
+  {/* Top menu bar storing links and routes for navigating */}
+  <Menu />
+
+  {/* Components assigned to router paths for rendering */}
+  <Routes>
+        <Route path="/calendar"  element={<Calendar />}></Route>
+        <Route path="/raport"     element={<Raport   />}></Route>
+        <Route path="/userlist"    element={<Userlist />}></Route>
+        <Route path="/traininglist" element={<Traininglist />}></Route>
+  </Routes>
+
+  </div>
   );
 }
 

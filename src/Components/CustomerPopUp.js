@@ -51,6 +51,7 @@ export default function CustomerPopUp(props) {
     return (
     <>
     <Popup
+    onClose={()=>setloaded(false)}
     modal
     nested
     trigger={ <Button variant="contained" color="primary">Trainings and info </Button>} position="right center">
@@ -94,7 +95,7 @@ export default function CustomerPopUp(props) {
 
             { 
               loaded && 
-              <ReactTable filterable={true} defaultPageSize={3} 
+              <ReactTable filterable={true} defaultPageSize={3} onClose 
               data={trainings} columns={columns} />
             } 
       

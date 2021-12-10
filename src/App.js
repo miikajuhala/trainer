@@ -20,6 +20,7 @@ function App() {
   {/* Components assigned to router paths for rendering */}
   <Routes>
         <Route path="/calendar"  element={<Calendar />}></Route>
+        <Route path="/"  element={<Userlist />}></Route>
         <Route path="/raport"     element={<Raport   />}></Route>
         <Route path="/userlist"    element={<Userlist />}></Route>
         <Route path="/traininglist" element={<Traininglist />}></Route>

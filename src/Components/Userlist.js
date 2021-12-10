@@ -6,6 +6,7 @@ import 'react-table-v6/react-table.css';
 import CustomerPopUp from "./CustomerPopUp";
 import { confirm } from "react-confirm-box";
 import { Button } from "@material-ui/core";
+import AddCustomer from "./AddCustomer";
 
 export default function Userlist() {
 
@@ -43,6 +44,22 @@ const [loaded, setloaded] = React.useState(false)
         } 
         console.log("You click No!");
       }
+
+      const addCustomer=(customer)=>{
+        axios.post(url+"/customers",{
+            firstname: customer.firstname,
+            lastname:customer.lastname ,
+            streetaddress: customer.streetaddress,
+            postcode: customer.postcode,
+            city: customer.city,
+            email: customer.email,
+            phone: customer.email,    
+      })
+      .then(res=>{
+        console.log(res)
+        getUsers();
+      })
+    }
 
 
     // consts for user table
@@ -90,6 +107,13 @@ const [loaded, setloaded] = React.useState(false)
         <>
       
         {/* displays usertable with given data and columns */}
+
+ 
+          {
+            loaded&&
+            <AddCustomer addCustomer={addCustomer} ></AddCustomer>
+          }
+
         {
           loaded && 
           <ReactTable filterable={true} defaultPageSize={10} 

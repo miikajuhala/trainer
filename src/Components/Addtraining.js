@@ -21,6 +21,7 @@ export default function Addtraining(props) {
 
       const handleClose = () => {
         props.addTraining(newTraining);
+
         // tähän viel et closaa
       }
 

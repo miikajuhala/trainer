@@ -8,6 +8,8 @@ import 'react-table-v6/react-table.css';
 import { Button, Container, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 import Addtraining from "./Addtraining";
+import { ListGroupItem } from "react-bootstrap";
+import EditCustomer from "./EditCustomer";
 
 
 export default function CustomerPopUp(props) {
@@ -54,7 +56,7 @@ export default function CustomerPopUp(props) {
               })
 
               .then(res => {
-                getCustomerTrainigs();
+                getCustomerTrainigs()
                 console.log(res.data)
               })
             
@@ -89,7 +91,7 @@ export default function CustomerPopUp(props) {
         sortable: false,
        
         //Button to delete this training
-        Cell: row => (<Button color="secondary" onClick={() => deleteTraining(row.original.links[0].href)}> delete</Button> )
+        Cell: row => (<Button variant="contained" color="secondary" onClick={() => deleteTraining(row.original.links[0].href)}> delete</Button> )
           }
     ]
 
@@ -125,6 +127,10 @@ export default function CustomerPopUp(props) {
         <ListItem>
             <ListItemText primary="Post code" secondary={props.customer.postcode} />
         </ListItem>
+        
+        {/* customer editing component */}
+        <EditCustomer update={props.getUsers} customer={props.customer}></EditCustomer>
+        
   
   </Paper>
 

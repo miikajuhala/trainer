@@ -3,6 +3,8 @@ import axios from "axios";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import dayjs from "dayjs";
+import { Button } from "@material-ui/core";
+import { confirm } from "react-confirm-box";
 
 export default function Traininglist() {
 
@@ -27,6 +29,19 @@ export default function Traininglist() {
             })
           .catch(err => console.error(err))
         }
+        const deleteTraining = async (id) =>{
+          const result = await confirm("Are you sure?");
+          if (result) {
+                axios.delete(url+"api/trainings/"+id)  
+                .then(res => {
+                  console.log("deleted: "+ res.data)
+                  getTrainings()
+                })
+                
+              }
+              console.log("You click No!");
+            }
+    
     
         // const colums for training table
         const columns = [
@@ -56,8 +71,14 @@ export default function Traininglist() {
           {
             Header: 'Sukunimi',
             accessor: 'customer.lastname'  // accessor is the "key" in the data
+          },
+          {
+            accessor: 'customer.lastname',  // accessor is the "key" in the data
+            filterable: false,
+            Cell: row => (<Button variant="contained" color="secondary" 
+            onClick={() => deleteTraining(row.original.id)}> delete</Button> )
           }, 
-
+         
         ]
     
         return (

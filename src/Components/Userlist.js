@@ -4,6 +4,8 @@ import axios from "axios";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import CustomerPopUp from "./CustomerPopUp";
+import { confirm } from "react-confirm-box";
+import { Button } from "@material-ui/core";
 
 export default function Userlist() {
 
@@ -19,8 +21,8 @@ const [loaded, setloaded] = React.useState(false)
 
       // fetches all users
     const getUsers = () => {
-      console.log("getusers")
-      axios.get(url+"/customers")
+        console.log("getusers")
+        axios.get(url+"/customers")
         .then(response =>{
             setUser(response.data.content)
             setloaded(true);
@@ -28,6 +30,20 @@ const [loaded, setloaded] = React.useState(false)
         })
       .catch(err => console.error(err))
     }
+
+   const deleteCustomer = async (CustomerUrl) =>{
+    const result = await confirm("Are you sure?");
+    if (result) {
+          axios.delete(CustomerUrl)  
+          .then(res => {
+            console.log("deleted: "+ res.data)
+            getUsers();
+          })
+          
+        } 
+        console.log("You click No!");
+      }
+
 
     // consts for user table
     const columns = [
@@ -56,7 +72,14 @@ const [loaded, setloaded] = React.useState(false)
         sortable: false,
         minWidth: 90,
   
-        Cell: row => (<CustomerPopUp customer={row.original} /> )
+        Cell: row => (<CustomerPopUp getUsers={getUsers} customer={row.original} /> )
+      },
+      {
+        filterable: false,
+        sortable: false,
+        minWidth: 90,
+  
+        Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}>Delete customer</Button>)
       }
 
     ]

@@ -46,9 +46,15 @@ export default function CustomerPopUp(props) {
 
         // function to add new training to a customer
       const addTraining = (newTraining) =>{
+        let newDate = dayjs(newTraining.date)
+        const time = newTraining.time.split(":")
+        newDate = newDate.hour(time[0])
+        newDate = newDate.minute(time[1])
+
               axios.post("https://customerrest.herokuapp.com/api/trainings", {
+               
                 //jos ei toimi stekkaa toISOString() ekana!
-                date: newTraining.date,
+                date: newDate.toISOString(),
                 activity: newTraining.activity,
                 duration: newTraining.duration,
                 customer: props.customer.links[0].href

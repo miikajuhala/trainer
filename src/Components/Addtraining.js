@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from "axios";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import { Button, Container, ListItem, ListItemText, Paper, TextField, Typography } from "@material-ui/core";
@@ -12,7 +12,7 @@ import { confirm } from "react-confirm-box";
 export default function Addtraining(props) {
 
     //rows customers link to his/hers trainings
-    const [newTraining, setNewTrainings] = React.useState({date: Date, duration: '', activity: ''});
+    const [newTraining, setNewTrainings] = React.useState({date: Date, duration: '', activity: '', time: ""});
     const [loaded, setloaded] = React.useState(false)
 
     const inputChanged = (event) => {
@@ -20,6 +20,7 @@ export default function Addtraining(props) {
       }
 
       const handleClose = () => {
+        console.log(newTraining.time)
         props.addTraining(newTraining);
 
         // tähän viel et closaa
@@ -68,15 +69,29 @@ export default function Addtraining(props) {
             label="Duration"
             fullWidth
           />
+         
+      
+  
           <TextField
             margin="dense"
             id="date"
             name="date"
+            type="date"
             value={newTraining.date}
             onChange={inputChanged}
-            label="Date"
             fullWidth
           />
+          <TextField
+            margin="dense"
+            id="time"
+            name="time"
+            type="time"
+            value={newTraining.time}
+            onChange={inputChanged}
+            fullWidth
+          />
+
+          
         <Button onClick={close} color="primary">
             Cancel
         </Button>

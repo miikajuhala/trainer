@@ -7,6 +7,7 @@ import CustomerPopUp from "./CustomerPopUp";
 import { confirm } from "react-confirm-box";
 import { Button } from "@material-ui/core";
 import AddCustomer from "./AddCustomer";
+import CsvFile from "./CsvFile";
 
 export default function Userlist() {
 
@@ -112,6 +113,11 @@ const [loaded, setloaded] = React.useState(false)
           {
             loaded&&
             <AddCustomer addCustomer={addCustomer} ></AddCustomer>
+          }
+
+          {
+            loaded&&
+            <CsvFile customers={user}/>
           }
 
         {

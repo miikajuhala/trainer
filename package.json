@@ -24,12 +24,9 @@
     "reactjs-popup": "^2.0.5",
     "web-vitals": "^1.0.1"
   },
-
   "engines": {
     "node": "14.x"
   },
-
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -53,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }

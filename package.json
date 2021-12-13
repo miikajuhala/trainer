@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "node": "16.13.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
     "@fullcalendar/react": "^5.10.1",
@@ -25,6 +24,12 @@
     "reactjs-popup": "^2.0.5",
     "web-vitals": "^1.0.1"
   },
+
+  "engines": {
+    "node": ">=16.13.1"
+  },
+
+
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

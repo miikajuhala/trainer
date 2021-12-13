@@ -10,7 +10,7 @@ import { confirm } from "react-confirm-box";
 import Addtraining from "./Addtraining";
 import { ListGroupItem } from "react-bootstrap";
 import EditCustomer from "./EditCustomer";
-
+import { BsFillPersonLinesFill } from 'react-icons/bs';
 
 export default function CustomerPopUp(props) {
     //rows customers link to his/hers trainings
@@ -107,7 +107,7 @@ export default function CustomerPopUp(props) {
     onClose={()=>setloaded(false)}
     modal
     nested
-    trigger={ <Button variant="contained" color="primary">Trainings and info </Button>} position="right center">
+    trigger={ <Button variant="contained" color="primary"><BsFillPersonLinesFill></BsFillPersonLinesFill> </Button>} position="right center">
   
   {close => (
     <div className="modal">

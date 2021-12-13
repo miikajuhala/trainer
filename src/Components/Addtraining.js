@@ -26,7 +26,15 @@ export default function Addtraining(props) {
         // tähän viel et closaa
       }
 
-      
+      function SubmitButton(){
+        if (newTraining.activity && newTraining.date && newTraining.duration && newTraining.time){
+          return  (
+             <Button onClick={handleClose} color="primary">Save</Button>)
+        } else {
+          return   (
+          <Button onClick={handleClose} disabled color="primary">Save</Button>)
+        }
+      }
 
 
 
@@ -95,9 +103,8 @@ export default function Addtraining(props) {
         <Button onClick={close} color="primary">
             Cancel
         </Button>
-        <Button onClick={handleClose} color="primary">
-            Save
-        </Button>
+        {/* submit button that checks all fields are filled */}
+      <SubmitButton></SubmitButton>
 
   
   </Paper>

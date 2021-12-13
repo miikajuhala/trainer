@@ -4,9 +4,12 @@ import axios from "axios";
 import dayjs from "dayjs";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import { formatMs } from "@material-ui/core";
 import { render } from "@testing-library/react";
+import Addtraining from "./Addtraining";
+import moment from "moment";
 
 export default function Calendar() {
 
@@ -15,6 +18,7 @@ export default function Calendar() {
     var data=[];
     const url = "https://customerrest.herokuapp.com/"
     const [trainings, setTrainings] = React.useState([]);
+    const [open, setOpen]= React.useState([]);
 
     useEffect(() =>{
         getTrainings();
@@ -38,14 +42,18 @@ export default function Calendar() {
 
            console.log("fdf")
             trainings.forEach(training => {
-            data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+")", date: dayjs(training.date).format('YYYY-MM-DD hh:mm') })
+            data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+  training.duration+"Min)", start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
         })
       console.log(data)
     
 return(
 
 <FullCalendar
-  plugins={[ dayGridPlugin, interactionPlugin]}
+
+headerToolbar={{
+  center: 'dayGridMonth,timeGridWeek,timeGridDay',
+}}
+  plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
   dateClick={handleDateClick}
   initialView="dayGridMonth"
   weekends={true}
@@ -69,6 +77,10 @@ return(
       {loaded &&
       <div>{formatter()}</div>
       }
+
+     
+
+
   </>
 
     

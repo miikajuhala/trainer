@@ -4,9 +4,10 @@ import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import CustomerPopUp from "./CustomerPopUp";
 import { confirm } from "react-confirm-box";
-import { Button } from "@material-ui/core";
+import { Button, Grid, Paper } from "@material-ui/core";
 import AddCustomer from "./AddCustomer";
 import CsvFile from "./CsvFile";
+import { AiOutlineUserDelete } from 'react-icons/ai';
 
 export default function Userlist() {
 
@@ -26,10 +27,10 @@ const [loaded, setloaded] = React.useState(false)
         axios.get(url+"/customers")
         .then(response =>{
             setUser(response.data.content)
-            setloaded(true);
             console.log("users: "+response.data.content)
-        })
-      .catch(err => console.error(err))
+          })
+        .then(setloaded(true))
+        .catch(err => console.error(err))
     }
 
    const deleteCustomer = async (CustomerUrl) =>{
@@ -89,14 +90,14 @@ const [loaded, setloaded] = React.useState(false)
         sortable: false,
         minWidth: 90,
   
-        Cell: row => (<CustomerPopUp getUsers={getUsers} customer={row.original} /> )
+        Cell: row => ( <CustomerPopUp getUsers={getUsers} customer={row.original} /> )
       },
       {
         filterable: false,
         sortable: false,
         minWidth: 90,
   
-        Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}>Delete customer</Button>)
+        Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}><AiOutlineUserDelete></AiOutlineUserDelete></Button>)
       }
 
     ]
@@ -106,19 +107,40 @@ const [loaded, setloaded] = React.useState(false)
         
         <>
       
-        {/* displays usertable with given data and columns */}
+        
 
  
+ {/* grid to cemter stuff horizontally */}
+{loaded &&
+<Grid container  align = "center" justifyContent= "center" alignItems = "center">
+ 
+    
+     
+  {/* displays component to add new customer */}
           {
             loaded&&
-            <AddCustomer addCustomer={addCustomer} ></AddCustomer>
+            <>
+            <Paper  elevation={2} />
+              <AddCustomer addCustomer={addCustomer} ></AddCustomer>
+            <Paper />
+            </>
           }
+      
 
-          {
-            loaded&&
+
+{/* displays link to download userdata as a csv file */}
+        {
+          loaded&&
+          <>
+          <Paper elevation={0} />
             <CsvFile customers={user}/>
-          }
-
+          <Paper />
+          </>
+        }
+          
+     
+ </Grid>}
+{/* displays usertable with given data and columns and buttons to make changes */}
         {
           loaded && 
           <ReactTable filterable={true} defaultPageSize={10} 

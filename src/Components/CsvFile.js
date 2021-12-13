@@ -1,6 +1,7 @@
+import { Button } from "@material-ui/core";
 import React from "react";
 import { CSVLink, CSVDownload } from "react-csv";
- 
+import { FaFileDownload } from 'react-icons/fa';
 
 export default function CsvFile(props){
     const [allUsers, setallUsers] = React.useState([])
@@ -11,28 +12,36 @@ export default function CsvFile(props){
    React.useEffect(() => {
        console.log("!!")
     setallUsers(props.customers)
-
+    setLoaded(true);
     
     
     }, []) 
 
-// const mappi = (usrs)=>{
-//     usrs.map(user => { 
-//         delete user.links
-//         delete user.content
-//         setData(user);
-//     });
-    
-// }
+const mappi = (usrs)=>{
+    usrs.map(user => { 
+        delete user.links
+        delete user.content
+        
+      
+    })
+    console.log(usrs);
+    return(
+          <div>
+          <CSVLink
+          data={usrs} 
+          filename={"userfile.csv"}
+          className="btn btn-primary">
+          <Button color="primary" size="large"><FaFileDownload/></Button>
+          </CSVLink>  
+          </div>  
+        );
+}
 return(
 <>
 
- <CSVLink
-data={allUsers} 
-filename={"userfile.csv"}
-className="btn btn-primary">
-Download userdata
-</CSVLink> 
+ {loaded &&
+    <div>{mappi(allUsers)}</div>
+ }
 
 </>
 );

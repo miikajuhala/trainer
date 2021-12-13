@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-import Traininglist from "./Traininglist" 
 import axios from "axios";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';

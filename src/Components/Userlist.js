@@ -111,7 +111,7 @@ const [loaded, setloaded] = React.useState(false)
 
  
  {/* grid to cemter stuff horizontally */}
-{loaded &&
+
 <Grid container  align = "center" justifyContent= "center" alignItems = "center">
  
     
@@ -128,15 +128,12 @@ const [loaded, setloaded] = React.useState(false)
 
 {/* displays link to download userdata as a csv file */}
         {
-          loaded&&
-          <Paper elevation={0}>
-            <CsvFile customers={user}/>
-          </Paper>
-          
+          loaded &&
+          <CsvFile data={user}/>
         }
           
      
- </Grid>}
+ </Grid>
 {/* displays usertable with given data and columns and buttons to make changes */}
         {
           loaded && 

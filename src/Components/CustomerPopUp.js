@@ -20,7 +20,7 @@ export default function CustomerPopUp(props) {
 
       // function to get customers trainings
       const getCustomerTrainigs = () => {
-        console.log("getusers")
+        console.log(props.customer)
         axios.get(props.customer.links[2].href)
           .then(response =>{
               setTrainings(response.data.content)

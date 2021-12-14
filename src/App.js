@@ -11,6 +11,7 @@ function App() {
 
   //yhteiset funktiot 
   //kehityskohteet:
+  //JOS ON ILMAN NIMEÄ NIIN KAATUU KALENTERI
   //traininglistiin suora muokkaus?
   //kalenteriin suora muokkaus tai popupin avaus
   //csv fle näyimpi formatointi

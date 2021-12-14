@@ -87,7 +87,7 @@ export default function CustomerPopUp(props) {
              Cell : (propsi)=>{
               //formatting for date columns
               if(propsi.value===undefined){
-                  return <div></div>
+                  return null
               }else{
                   console.log(propsi.value)
                   const custom_date = dayjs(propsi.value).format('DD.MM.YYYY hh:mm')
@@ -101,8 +101,10 @@ export default function CustomerPopUp(props) {
         filterable: false,
         sortable: false,
        
+
+        
         //Button to delete this training
-        Cell: row => (<Button variant="contained" color="secondary" onClick={() => deleteTraining(row.original.links[0].href)}> delete</Button> )
+        Cell: row => (  <Button variant="contained" color="secondary" onClick={() => deleteTraining(row.original.links[0].href)}> delete</Button> )
           }
     ]
 

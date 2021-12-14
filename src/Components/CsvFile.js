@@ -8,11 +8,6 @@ export default function CsvFile(props){
     const [loaded, setLoaded] = React.useState(false)
     const [data, setData] = React.useState([])
 
-    React.useEffect(() => {
-        console.log(props.data)
-      }, [])
-    
-
 
     return(
          <CSVLink

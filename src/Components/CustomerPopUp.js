@@ -86,8 +86,13 @@ export default function CustomerPopUp(props) {
             accessor: 'date',
              Cell : (propsi)=>{
               //formatting for date columns
-              const custom_date = dayjs(propsi.value).format('DD.MM.YYYY hh:mm')
-              return <span>{custom_date}</span>
+              if(propsi.value===undefined){
+                  return <div></div>
+              }else{
+                  console.log(propsi.value)
+                  const custom_date = dayjs(propsi.value).format('DD.MM.YYYY hh:mm')
+                  return <span>{custom_date}</span>
+              }
           }
            
           },
@@ -148,12 +153,12 @@ export default function CustomerPopUp(props) {
     }}> 
 
         <Typography variant="overline" display="block" gutterBottom>
-          Personal trainigs
+          Personal trainings
         </Typography>
 
         {/* get all trainings */}
         { loaded===false &&
-            <Button variant="contained" color="secondary" onClick={getCustomerTrainigs}> get Customer Trainigs</Button>
+            <Button variant="contained" color="secondary" onClick={getCustomerTrainigs}> get Customer Trainings</Button>
         }
 
         {/* add new training(s) */}

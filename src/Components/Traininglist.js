@@ -5,6 +5,7 @@ import 'react-table-v6/react-table.css';
 import dayjs from "dayjs";
 import { Button } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
+import { Delete } from "@material-ui/icons";
 
 export default function Traininglist() {
 
@@ -76,7 +77,7 @@ export default function Traininglist() {
             accessor: 'customer.lastname',  // accessor is the "key" in the data
             filterable: false,
             Cell: row => (<Button variant="contained" color="secondary" 
-            onClick={() => deleteTraining(row.original.id)}> delete</Button> )
+            onClick={() => deleteTraining(row.original.id)}>  <Delete></Delete> </Button> )
           }, 
          
         ]

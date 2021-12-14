@@ -10,6 +10,10 @@ import Traininglist from './Components/Traininglist';
 function App() {
 
   //yhteiset funktiot 
+  //kehityskohteet:
+  //traininglistiin suora muokkaus?
+  //kalenteriin suora muokkaus tai popupin avaus
+  //csv fle näyimpi formatointi
 
   
   return (

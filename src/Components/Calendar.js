@@ -30,10 +30,16 @@ export default function Calendar() {
     axios.get(url+"/gettrainings")
           .then(response =>{
               setTrainings(response.data)
-              console.log("trainings: "+response.data)
+              console.log(response.data)
               
               
-          }).then(setloaded(true))
+          }).then(()=>{
+            if(trainings!==null){
+              setloaded(true)
+            }
+            else getTrainings();
+            
+            })
         .catch(err => console.error(err))
       }
 
@@ -42,7 +48,8 @@ export default function Calendar() {
 
            console.log("fdf")
             trainings.forEach(training => {
-            data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+  training.duration+"Min)", start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
+            data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+" "+ training.duration+" Min)",
+             start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
         })
       console.log(data)
     
@@ -54,7 +61,7 @@ headerToolbar={{
   center: 'dayGridMonth,timeGridWeek,timeGridDay',
 }}
   plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
-  dateClick={handleDateClick}
+  eventClick={handleDateClick}
   initialView="dayGridMonth"
   weekends={true}
   events={data}    
@@ -66,7 +73,11 @@ headerToolbar={{
 }
 
     const handleDateClick = (arg) => { // bind with an arrow function
-        alert(arg.dateStr)
+        alert(
+              arg.event.title+" "+
+              dayjs(arg.event.start).format('hh:mm') + "-" +
+              dayjs(arg.event.end).format('hh:mm')
+          )
       }
     
 

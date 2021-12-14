@@ -17,50 +17,52 @@ const [loaded, setloaded] = React.useState(false)
 
 
     useEffect(() => {
-        getUsers();
+        getUsers()
         console.log("ueffect!")
       }, [])
 
       // fetches all users
     const getUsers = () => {
-        console.log("getusers")
-        axios.get(url+"/customers")
-        .then(response =>{
-            setUser(response.data.content)
-            console.log("users: "+response.data.content)
-          })
-        .then(setloaded(true))
+      console.log("getusers")
+      axios.get(url + "/customers")
+        .then(response => {
+          setUser(response.data.content)
+          console.log("users: " + response.data.content)
+          setloaded(true);
+        })
+
         .catch(err => console.error(err))
     }
 
-   const deleteCustomer = async (CustomerUrl) =>{
-    const result = await confirm("Are you sure?");
-    if (result) {
-          axios.delete(CustomerUrl)  
+    const deleteCustomer = async (CustomerUrl) => {
+      const result = await confirm("Are you sure?");
+      if (result) {
+        axios.delete(CustomerUrl)
           .then(res => {
-            console.log("deleted: "+ res.data)
+            console.log("deleted: " + res.data)
             getUsers();
           })
-          
-        } 
-        console.log("You click No!");
-      }
 
-      const addCustomer=(customer)=>{
-        axios.post(url+"/customers",{
+      }
+      console.log("You click No!");
+    }
+
+      const addCustomer = (customer) => {
+        axios.post(url + "/customers", {
+
             firstname: customer.firstname,
-            lastname:customer.lastname ,
+            lastname: customer.lastname,
             streetaddress: customer.streetaddress,
             postcode: customer.postcode,
             city: customer.city,
             email: customer.email,
-            phone: customer.email,    
-      })
-      .then(res=>{
-        console.log(res)
-        getUsers();
-      })
-    }
+            phone: customer.email,
+          })
+          .then(res => {
+            console.log(res)
+            getUsers();
+          })
+      }
 
 
     // consts for user table
@@ -97,7 +99,9 @@ const [loaded, setloaded] = React.useState(false)
         sortable: false,
         minWidth: 90,
   
-        Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}><AiOutlineUserDelete></AiOutlineUserDelete></Button>)
+        Cell: row => (<Button variant="contained" color="secondary" 
+        onClick={() => deleteCustomer(row.original.links[0].href)}>
+        <AiOutlineUserDelete></AiOutlineUserDelete></Button>)
       }
 
     ]
@@ -111,41 +115,38 @@ const [loaded, setloaded] = React.useState(false)
 
  
  {/* grid to cemter stuff horizontally */}
-{loaded &&
+
 <Grid container  align = "center" justifyContent= "center" alignItems = "center">
  
     
      
   {/* displays component to add new customer */}
-          {
-            loaded&&
+          
             <>
             <Paper  elevation={2} />
               <AddCustomer addCustomer={addCustomer} ></AddCustomer>
             <Paper />
             </>
-          }
+          
       
 
 
 {/* displays link to download userdata as a csv file */}
+        
         {
-          loaded&&
-          <>
-          <Paper elevation={0} />
-            <CsvFile customers={user}/>
-          <Paper />
-          </>
+          loaded && 
+          <CsvFile customers={user}/>
         }
+       
           
      
- </Grid>}
+ </Grid>
 {/* displays usertable with given data and columns and buttons to make changes */}
         {
           loaded && 
           <ReactTable filterable={true} defaultPageSize={10} 
           data={user} columns={columns} />
-        }
+        } 
          
         </>
     )

@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {  Grid, Paper, Typography } from "@material-ui/core";
+import {  Box, Grid, LinearProgress, Paper, Typography } from "@material-ui/core";
 import axios from "axios";
 import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import _ from "lodash"
@@ -73,6 +73,14 @@ const  returnfunction =()=>{
  
     return (
 <>
+
+  {
+  !loaded && 
+  <Box sx={{ width: '100%' }}>
+    <LinearProgress />
+  </Box>    
+  }
+
 <Typography variant="h6" gutterBottom style={{marginTop: 23}}>
       Statistics
 </Typography>
@@ -167,9 +175,12 @@ Customers by cities (with currently booked trainings)
 }
 
 </Grid>
-        
+  
+
+ 
 
 </>
+
     );
 }
 

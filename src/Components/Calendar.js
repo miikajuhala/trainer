@@ -7,6 +7,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
 import moment from "moment";
+import { Box, LinearProgress } from "@material-ui/core";
 
 
 export default function Calendar(props) {
@@ -89,7 +90,13 @@ headerToolbar={{
       {loaded &&
       <div>{formatter()}</div>
       }
-
+      
+      {
+      !loaded && 
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    }
      
 
 

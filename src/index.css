@@ -46,7 +46,7 @@ code {
   border: 1px solid #cfcece;
 }
 .topnav {
-  background-color: #333;
+  background-color: rgb(221, 221, 221);
   overflow: hidden;
 }
 
@@ -54,7 +54,7 @@ code {
 .topnav a {
   float: left;
   display: block;
-  color: #f2f2f2;
+  color: #706e6e;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -64,7 +64,7 @@ code {
 /* Change the color of links on hover */
 .topnav a:hover {
   background-color: #ddd;
-  color: black;
+  color: rgb(236, 235, 235);
 }
 
 /* Add an active class to highlight the current page */

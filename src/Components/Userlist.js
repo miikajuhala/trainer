@@ -72,15 +72,15 @@ const [loaded, setloaded] = React.useState(false)
     // consts for user table
     const columns = [
       {
-        Header: 'Etunimi',
+        Header: 'Firstname',
         accessor: 'firstname' // accessor is the "key" in the data
       },
       {
-        Header: 'Sukunimi',
+        Header: 'Lastname',
         accessor: 'lastname' // accessor is the "key" in the data
       },    
       {
-        Header: 'Puh',
+        Header: 'Phone',
         accessor: 'phone'  // accessor is the "key" in the data
       }, 
       {
@@ -88,7 +88,7 @@ const [loaded, setloaded] = React.useState(false)
         accessor: 'email'  // accessor is the "key" in the data
       },    
       {
-        Header: 'Kaupunki',
+        Header: 'City',
         accessor: 'city'  // accessor is the "key" in the data
       },
       {
@@ -121,12 +121,12 @@ const [loaded, setloaded] = React.useState(false)
 <Grid container  align = "center" justifyContent= "center" alignItems = "center" >
  
 {/* loading feature */}
-    {
-    !loaded && 
-      <Box sx={{ width: '100%' }}>
-        <LinearProgress />
-      </Box>
-    }
+          {
+          !loaded && 
+            <Box sx={{ width: '100%' }}>
+              <LinearProgress />
+            </Box>
+          }
      
   {/* displays component to add new customer */}
           {

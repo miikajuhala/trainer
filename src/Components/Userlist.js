@@ -4,14 +4,15 @@ import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import CustomerPopUp from "./CustomerPopUp";
 import { confirm } from "react-confirm-box";
-import { Button, Grid, Paper } from "@material-ui/core";
+import { Box, Button, CircularProgress, Grid, LinearProgress, Paper } from "@material-ui/core";
 import AddCustomer from "./AddCustomer";
 import CsvFile from "./CsvFile";
 import { AiOutlineUserDelete } from 'react-icons/ai';
 import Raport from "./Raport";
 
 
-export default function Userlist() {
+
+export default function Userlist(props) {
 
 const url = "https://customerrest.herokuapp.com/api"
 const [user, setUser] = React.useState([]);
@@ -25,11 +26,10 @@ const [loaded, setloaded] = React.useState(false)
 
       // fetches all users
     const getUsers = () => {
-        console.log("getusers")
+        setloaded(false)
         axios.get(url+"/customers")
         .then(response =>{
             setUser(response.data.content)
-            
             console.log(response.data.content)
           })
         .then(setloaded(true))
@@ -41,7 +41,8 @@ const [loaded, setloaded] = React.useState(false)
     if (result) {
           axios.delete(CustomerUrl)  
           .then(res => {
-            console.log("deleted: "+ res.data)
+            props.setMsg("User deleted!")
+            props.setOpen(true);
             getUsers();
           })
           
@@ -60,8 +61,10 @@ const [loaded, setloaded] = React.useState(false)
             phone: customer.email,    
       })
       .then(res=>{
+        props.setMsg("User Added!")
+        props.setOpen(true)
         console.log(res)
-        
+        getUsers();
       })
     }
 
@@ -117,7 +120,13 @@ const [loaded, setloaded] = React.useState(false)
 
 <Grid container  align = "center" justifyContent= "center" alignItems = "center" >
  
-    
+{/* loading feature */}
+    {
+    !loaded && 
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    }
      
   {/* displays component to add new customer */}
           {
@@ -135,7 +144,7 @@ const [loaded, setloaded] = React.useState(false)
           <CsvFile data={user}/>
         }
           
-     
+       
  </Grid>
 {/* displays usertable with given data and columns and buttons to make changes */}
         {
@@ -143,8 +152,11 @@ const [loaded, setloaded] = React.useState(false)
           <ReactTable filterable={true} defaultPageSize={10} 
           data={user} columns={columns} />
         }
-         
+        {
+        loaded && 
         <Raport userBoolean={true} trainingBoolean={false}></Raport>
+        }
+       
         </>
     )
 }

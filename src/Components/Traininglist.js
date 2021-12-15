@@ -3,10 +3,11 @@ import axios from "axios";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import dayjs from "dayjs";
-import { Button } from "@material-ui/core";
+import { Box, Button, LinearProgress } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 import { Delete } from "@material-ui/icons";
 import Raport from "./Raport";
+
 
 export default function Traininglist() {
 
@@ -87,7 +88,12 @@ export default function Traininglist() {
     
             
             <>
-
+          {
+          !loaded1 && 
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress />
+          </Box>
+          }
             {/* table that displays training data */}
             { 
               loaded1 && 

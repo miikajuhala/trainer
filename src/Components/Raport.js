@@ -6,6 +6,7 @@ import _ from "lodash"
 import dayjs from "dayjs";
 
 
+
 export default function Raport(props) {
   
     const url = "https://customerrest.herokuapp.com/"
@@ -14,7 +15,7 @@ export default function Raport(props) {
     const [data1, setData1] = React.useState([]);
     const [data2, setData2] = React.useState([]);
     const dataOpt=[];
-    
+
     const [loaded, setloaded] = React.useState(false)
     
     //months for statistics (dayjs didnt work consistently)

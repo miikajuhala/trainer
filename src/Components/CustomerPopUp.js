@@ -8,9 +8,9 @@ import 'react-table-v6/react-table.css';
 import { Button, Container, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 import Addtraining from "./Addtraining";
-import { ListGroupItem } from "react-bootstrap";
 import EditCustomer from "./EditCustomer";
 import { BsFillPersonLinesFill } from 'react-icons/bs';
+
 
 export default function CustomerPopUp(props) {
     //rows customers link to his/hers trainings

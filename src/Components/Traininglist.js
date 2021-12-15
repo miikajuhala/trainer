@@ -51,7 +51,7 @@ export default function Traininglist(props) {
         const columns = [
           {
             filterable: false,
-            Header: 'Aika',
+            Header: 'Aika', 
             accessor: 'date',
              Cell : (props1)=>{
               //formatting for date columns

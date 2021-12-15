@@ -6,10 +6,12 @@ export default function Menu() {
     return (
     <>
     <div className="topnav" id="myTopnav">
-        <Link to="/userlist">Userlist</Link>
-        <Link to="/raport">Raport</Link>
+        <Link to="/userlist">Customers</Link>
+        <Link to="/traininglist">Trainings</Link>
         <Link to="/calendar">Calendar</Link>
-        <Link to="/traininglist">Traininglist</Link>
+        <Link to="/raport">Statistics</Link>
+        
+        
     </div>
     </>
     )

@@ -153,7 +153,7 @@ const [loaded, setloaded] = React.useState(false)
           data={user} columns={columns} />
         }
         {
-        loaded && 
+        loaded &&  
         <Raport userBoolean={true} trainingBoolean={false}></Raport>
         }
        

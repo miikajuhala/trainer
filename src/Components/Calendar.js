@@ -30,7 +30,7 @@ export default function Calendar(props) {
               setTrainings(response.data)
               console.log(response.data)
           })
-          .then(()=>{
+          .then(()=>{ 
             if(trainings!==null){
               setloaded(true)
             }

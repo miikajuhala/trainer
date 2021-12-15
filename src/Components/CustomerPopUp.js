@@ -22,12 +22,14 @@ export default function CustomerPopUp(props) {
 
       // function to get customers trainings
       const getCustomerTrainigs = () => {
+        
         console.log(props.customer)
         axios.get(props.customer.links[2].href)
           .then(response =>{
               setTrainings(response.data.content)
               setloaded(true);
               console.log("user's trainigs: "+response.data.content)
+
           })
         .catch(err => console.error(err))
       }
@@ -175,7 +177,7 @@ export default function CustomerPopUp(props) {
         }
 
         {/* table to show all trainings of a current customer */}
-        { 
+        {  
           loaded && 
           <ReactTable filterable={true} defaultPageSize={3} onClose 
           data={trainings} columns={columns} />

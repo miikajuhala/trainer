@@ -127,7 +127,7 @@ Trainings by month
 {(props.userBoolean || props.userBoolean===undefined) &&
 <Paper elevation={4} style={{ marginTop: 20, marginLeft: 20, marginRight: 20}}>
 <Typography variant="overline" display="block" gutterBottom>
-Customers by cities       
+Customers by cities (with currently booked trainings)       
 </Typography>
 
         <LineChart

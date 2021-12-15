@@ -21,8 +21,9 @@ export default function AddCustomer(props){
     };
 
     const handleOk =()=>{
-    props.addCustomer(customer);
-    setOpen(false);
+    props.addCustomer(customer)
+    props.getUsers()
+    setOpen(false)
       
     }
 
@@ -33,7 +34,7 @@ export default function AddCustomer(props){
     return (
       <div>
         <Button variant="contained" color="primary" onClick={handleClickOpen}>
-         Add new customer
+         Add a new customer
         </Button>
         <Dialog open={open} onClose={handleClose}>
           <DialogTitle >Edit Customer</DialogTitle>

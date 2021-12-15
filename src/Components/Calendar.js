@@ -44,6 +44,7 @@ export default function Calendar() {
       }
 
       //function to format data in a format directyl suitable to calendar component
+      //TODO: calendar crashes if someone has pushed broken data, training without customer for example.
       const formatter = ()=>{
 
            console.log("fdf")
@@ -51,6 +52,9 @@ export default function Calendar() {
             data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+" "+ training.duration+" Min)",
              start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
         })
+
+
+
       console.log(data)
     
 return(

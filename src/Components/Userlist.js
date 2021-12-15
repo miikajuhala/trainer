@@ -8,6 +8,8 @@ import { Button, Grid, Paper } from "@material-ui/core";
 import AddCustomer from "./AddCustomer";
 import CsvFile from "./CsvFile";
 import { AiOutlineUserDelete } from 'react-icons/ai';
+import Raport from "./Raport";
+
 
 export default function Userlist() {
 
@@ -27,7 +29,8 @@ const [loaded, setloaded] = React.useState(false)
         axios.get(url+"/customers")
         .then(response =>{
             setUser(response.data.content)
-            console.log("users: "+response.data.content)
+            
+            console.log(response.data.content)
           })
         .then(setloaded(true))
         .catch(err => console.error(err))
@@ -58,7 +61,7 @@ const [loaded, setloaded] = React.useState(false)
       })
       .then(res=>{
         console.log(res)
-        getUsers();
+        
       })
     }
 
@@ -112,15 +115,15 @@ const [loaded, setloaded] = React.useState(false)
  
  {/* grid to cemter stuff horizontally */}
 
-<Grid container  align = "center" justifyContent= "center" alignItems = "center">
+<Grid container  align = "center" justifyContent= "center" alignItems = "center" >
  
     
      
   {/* displays component to add new customer */}
           {
             loaded&&
-            <Paper  elevation={2}>
-              <AddCustomer addCustomer={addCustomer} ></AddCustomer>
+            <Paper  style={{marginTop: 10, marginBottom:10}} elevation={2}>
+              <AddCustomer addCustomer={addCustomer} getUsers={getUsers}  ></AddCustomer>
             </Paper>
           }
       
@@ -141,6 +144,7 @@ const [loaded, setloaded] = React.useState(false)
           data={user} columns={columns} />
         }
          
+        <Raport userBoolean={true} trainingBoolean={false}></Raport>
         </>
     )
 }

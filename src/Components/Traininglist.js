@@ -6,6 +6,7 @@ import dayjs from "dayjs";
 import { Button } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 import { Delete } from "@material-ui/icons";
+import Raport from "./Raport";
 
 export default function Traininglist() {
 
@@ -94,7 +95,7 @@ export default function Traininglist() {
               data={trainings} columns={columns} />
             } 
 
-
+            <Raport userBoolean={false} trainingBoolean={true}></Raport>
             </>
         )
     }

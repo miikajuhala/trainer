@@ -6,19 +6,17 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from "@fullcalendar/interaction" // needed for dayClick
-import { formatMs } from "@material-ui/core";
-import { render } from "@testing-library/react";
-import Addtraining from "./Addtraining";
 import moment from "moment";
 
-export default function Calendar() {
+
+export default function Calendar(props) {
 
     
     const [loaded, setloaded] = React.useState(false);
     var data=[];
     const url = "https://customerrest.herokuapp.com/"
     const [trainings, setTrainings] = React.useState([]);
-    const [open, setOpen]= React.useState([]);
+    
 
     useEffect(() =>{
         getTrainings();
@@ -31,14 +29,12 @@ export default function Calendar() {
           .then(response =>{
               setTrainings(response.data)
               console.log(response.data)
-              
-              
-          }).then(()=>{
+          })
+          .then(()=>{
             if(trainings!==null){
               setloaded(true)
             }
             else getTrainings();
-            
             })
         .catch(err => console.error(err))
       }
@@ -77,11 +73,12 @@ headerToolbar={{
 }
 
     const handleDateClick = (arg) => { // bind with an arrow function
-        alert(
+        props.setMsg(
               arg.event.title+" "+
               dayjs(arg.event.start).format('hh:mm') + "-" +
               dayjs(arg.event.end).format('hh:mm')
           )
+          props.setOpen(true);
       }
     
 

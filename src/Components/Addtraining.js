@@ -5,7 +5,7 @@ import axios from "axios";
 import dayjs, { Dayjs } from "dayjs";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
-import { Button, Container, ListItem, ListItemText, Paper, TextField, Typography } from "@material-ui/core";
+import {Button, Paper, TextField } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 
 
@@ -40,6 +40,9 @@ export default function Addtraining(props) {
 
     return (
     <>
+
+      
+
     <Popup
     onClose={()=>setloaded(false)}
     modal

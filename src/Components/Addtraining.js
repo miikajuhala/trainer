@@ -1,19 +1,16 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
-import axios from "axios";
-import dayjs, { Dayjs } from "dayjs";
-import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import {Button, Paper, TextField } from "@material-ui/core";
-import { confirm } from "react-confirm-box";
+
 
 
 export default function Addtraining(props) {
 
     //rows customers link to his/hers trainings
     const [newTraining, setNewTrainings] = React.useState({date: Date, duration: '', activity: '', time: ""});
-    const [loaded, setloaded] = React.useState(false)
+  
 
     const inputChanged = (event) => {
         setNewTrainings({...newTraining, [event.target.name]: event.target.value});
@@ -44,7 +41,6 @@ export default function Addtraining(props) {
       
 
     <Popup
-    onClose={()=>setloaded(false)}
     modal
     nested
     trigger={ <Button variant="contained" color="primary">Add new training</Button>} position="right center">

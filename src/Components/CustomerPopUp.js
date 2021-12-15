@@ -1,11 +1,11 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import axios from "axios";
 import dayjs from "dayjs";
 import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
-import { Button, Container, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
+import { Button, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
 import { confirm } from "react-confirm-box";
 import Addtraining from "./Addtraining";
 import EditCustomer from "./EditCustomer";
@@ -17,6 +17,8 @@ export default function CustomerPopUp(props) {
     // const url =props.customer.links[2].href
     const [trainings, setTrainings] = React.useState([]);
     const [loaded, setloaded] = React.useState(false)
+
+    
 
       // function to get customers trainings
       const getCustomerTrainigs = () => {
@@ -37,6 +39,8 @@ export default function CustomerPopUp(props) {
             axios.delete(url2)  
             .then(res => {
               console.log("deleted: "+ res.data)
+              props.setMsg("Training deleted!")
+              props.setOpen(true)
               getCustomerTrainigs()
             })
             
@@ -62,6 +66,8 @@ export default function CustomerPopUp(props) {
               })
 
               .then(res => {
+                props.setMsg("Training added!")
+                props.setOpen(true)
                 getCustomerTrainigs()
                 console.log(res.data)
               })
@@ -142,7 +148,7 @@ export default function CustomerPopUp(props) {
         </ListItem>
         
         {/* customer editing component */}
-        <EditCustomer update={props.getUsers} customer={props.customer}></EditCustomer>
+        <EditCustomer update={props.getUsers} customer={props.customer} setOpen={props.setOpen} setMsg={props.setMsg}></EditCustomer>
         
   
   </Paper>

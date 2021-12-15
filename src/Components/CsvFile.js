@@ -1,12 +1,11 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink} from "react-csv";
 import { FaFileDownload } from 'react-icons/fa';
 
 export default function CsvFile(props){
 
-    const [loaded, setLoaded] = React.useState(false)
-    const [data, setData] = React.useState([])
+  
 
 
     return(

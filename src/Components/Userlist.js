@@ -4,7 +4,7 @@ import ReactTable from 'react-table-v6';
 import 'react-table-v6/react-table.css';
 import CustomerPopUp from "./CustomerPopUp";
 import { confirm } from "react-confirm-box";
-import { Box, Button, CircularProgress, Grid, LinearProgress, Paper } from "@material-ui/core";
+import { Box, Button, Grid, LinearProgress, Paper } from "@material-ui/core";
 import AddCustomer from "./AddCustomer";
 import CsvFile from "./CsvFile";
 import { AiOutlineUserDelete } from 'react-icons/ai';
@@ -96,7 +96,7 @@ const [loaded, setloaded] = React.useState(false)
         sortable: false,
         minWidth: 90,
   
-        Cell: row => ( <CustomerPopUp getUsers={getUsers} customer={row.original} /> )
+        Cell: row => ( <CustomerPopUp getUsers={getUsers} customer={row.original} setMsg={props.setMsg} setOpen={props.setOpen}  /> )
       },
       {
         filterable: false,

@@ -9,7 +9,7 @@ import { Delete } from "@material-ui/icons";
 import Raport from "./Raport";
 
 
-export default function Traininglist() {
+export default function Traininglist(props) {
 
     const url = "https://customerrest.herokuapp.com/"
     const [trainings, setTrainings] = React.useState([]);
@@ -37,7 +37,8 @@ export default function Traininglist() {
           if (result) {
                 axios.delete(url+"api/trainings/"+id)  
                 .then(res => {
-                  console.log("deleted: "+ res.data)
+                  props.setMsg("Training deleted!")
+                  props.setOpen(true)
                   getTrainings()
                 })
                 
@@ -52,9 +53,9 @@ export default function Traininglist() {
             filterable: false,
             Header: 'Aika',
             accessor: 'date',
-             Cell : (props)=>{
+             Cell : (props1)=>{
               //formatting for date columns
-              const custom_date = dayjs(props.value).format('DD.MM.YYYY hh:mm')
+              const custom_date = dayjs(props1.value).format('DD.MM.YYYY hh:mm')
               return <span>{custom_date}</span>
           }
            

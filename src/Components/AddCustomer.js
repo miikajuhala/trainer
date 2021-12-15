@@ -1,6 +1,6 @@
 import { TextField, Button, DialogContentText, DialogTitle, Dialog, DialogContent, DialogActions } from '@material-ui/core';
-import React, { useEffect } from 'react'
-import axios from 'axios';
+import React from 'react'
+
 
 
 export default function AddCustomer(props){

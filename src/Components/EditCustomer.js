@@ -1,5 +1,5 @@
 import { TextField, Button, DialogContentText, DialogTitle, Dialog, DialogContent, DialogActions } from '@material-ui/core';
-import React, { useEffect } from 'react'
+import React from 'react'
 import axios from 'axios';
 
 export default function EditCustomer(props){
@@ -37,6 +37,8 @@ export default function EditCustomer(props){
         streetaddress: customer.streetaddress,
       })
       .then(res =>{
+        props.setMsg("User edited!")
+        props.setOpen(true)
         props.update();
         console.log("update!"+res)
         setOpen(false);

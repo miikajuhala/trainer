@@ -1,3 +1,13 @@
+# Frontend software for personal trainers!
+ - React.js
+ - Mostly developed using MUI library
+ - Customer and trainings list displays
+ - Automatized analytics
+ - Automatized calendar with information display
+ - Customer and training crud functionalities
+
+----------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,6 +1,6 @@
 # Frontend software for personal trainers!
  - React.js
- - Mostly devoloped using MUI library
+ - Mostly developed using MUI library
  - Customer and training crud functionalities
  - Automatized analytics
  - Automatized calendar with information display

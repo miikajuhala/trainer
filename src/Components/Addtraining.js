@@ -8,49 +8,45 @@ import {Button, Paper, TextField } from "@material-ui/core";
 
 export default function Addtraining(props) {
 
-    //rows customers link to his/hers trainings
-    const [newTraining, setNewTrainings] = React.useState({date: Date, duration: '', activity: '', time: ""});
-  
+//rows customers link to his/hers trainings
+const [newTraining, setNewTrainings] = React.useState({date: Date, duration: '', activity: '', time: ""});
 
-    const inputChanged = (event) => {
-        setNewTrainings({...newTraining, [event.target.name]: event.target.value});
-      }
 
-      const handleClose = () => {
-        console.log(newTraining.time)
-        props.addTraining(newTraining);
+const inputChanged = (event) => {
+    setNewTrainings({...newTraining, [event.target.name]: event.target.value});
+}
 
-        // tähän viel et closaa
-      }
+const handleClose = () => {
+  console.log(newTraining.time)
+  props.addTraining(newTraining);
+}
 
-      function SubmitButton(){
-        if (newTraining.activity && newTraining.date && newTraining.duration && newTraining.time){
-          return  (
-             <Button onClick={handleClose} color="primary">Save</Button>)
-        } else {
-          return   (
-          <Button onClick={handleClose} disabled color="primary">Save</Button>)
-        }
-      }
+const SubmitButton =()=>{
+  if (newTraining.activity && newTraining.date && newTraining.duration && newTraining.time){
+    return(
+      <Button onClick={handleClose} color="primary">Save</Button>)
+  } else {
+    return(
+      <Button onClick={handleClose} disabled color="primary">Save</Button>)
+  }
+}
 
 
 
-    return (
-    <>
+return (
+<>
+  <Popup
+  modal
+  nested
+  trigger={ <Button variant="contained" color="primary">Add new training</Button>} position="right center">
 
-      
-
-    <Popup
-    modal
-    nested
-    trigger={ <Button variant="contained" color="primary">Add new training</Button>} position="right center">
-  
   {close => (
-    <div className="modal">
-    <button className="close" onClick={close}>
-      &times;
-    </button>
-        
+
+  <div className="modal">
+  <button className="close" onClick={close}>
+    &times;
+  </button>
+          
   {/* Paper to show personal information */}
   <Paper  style={{
     padding: 10,
@@ -76,9 +72,9 @@ export default function Addtraining(props) {
             label="Duration"
             fullWidth
           />
-         
+          
       
-  
+
           <TextField
             margin="dense"
             id="date"
@@ -98,23 +94,17 @@ export default function Addtraining(props) {
             fullWidth
           />
 
-          
         <Button onClick={close} color="primary">
             Cancel
         </Button>
         {/* submit button that checks all fields are filled */}
       <SubmitButton></SubmitButton>
 
-  
   </Paper>
 
-
-        
-
-
-      </div>
-    )}
+  </div>
+  )}
   </Popup>
-    </>
-    )
+</>
+)
 }

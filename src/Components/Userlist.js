@@ -19,144 +19,134 @@ const [user, setUser] = React.useState([]);
 const [loaded, setloaded] = React.useState(false)
 
 
-    useEffect(() => {
-        getUsers();
-        console.log("ueffect!")
-      }, [])
+useEffect(() => {
+  getUsers();
+  console.log("ueffect!")
+}, [])
 
-      // fetches all users
-    const getUsers = () => {
-        setloaded(false)
-        axios.get(url+"/customers")
+  // Fetches all users
+  const getUsers = () => {
+      setloaded(false)
+      axios.get(url+"/customers")
         .then(response =>{
             setUser(response.data.content)
             console.log(response.data.content)
-          })
+        })
         .then(setloaded(true))
         .catch(err => console.error(err))
-    }
+  }
 
-   const deleteCustomer = async (CustomerUrl) =>{
-    const result = await confirm("Are you sure?");
+  // Deletes customer with confirmation
+  const deleteCustomer = async (CustomerUrl) =>{
+  const result = await confirm("Are you sure?");
     if (result) {
-          axios.delete(CustomerUrl)  
-          .then(res => {
-            props.setMsg("User deleted!")
-            props.setOpen(true);
-            getUsers();
-          })
-          
-        } 
-        console.log("You click No!");
-      }
+      axios.delete(CustomerUrl)  
+        .then(res => {
+          props.setMsg("User deleted!")
+          props.setOpen(true);
+          getUsers();
+        })
+    } 
+  }
 
-      const addCustomer=(customer)=>{
-        axios.post(url+"/customers",{
-            firstname: customer.firstname,
-            lastname:customer.lastname ,
-            streetaddress: customer.streetaddress,
-            postcode: customer.postcode,
-            city: customer.city,
-            email: customer.email,
-            phone: customer.email,    
-      })
-      .then(res=>{
-        props.setMsg("User Added!")
-        props.setOpen(true)
-        console.log(res)
-        getUsers();
-      })
+  //Customer add
+  const addCustomer=(customer)=>{
+    axios.post(url+"/customers",{
+        firstname: customer.firstname,
+        lastname:customer.lastname ,
+        streetaddress: customer.streetaddress,
+        postcode: customer.postcode,
+        city: customer.city,
+        email: customer.email,
+        phone: customer.email,    
+    })
+    .then(res=>{
+      props.setMsg("User Added!")
+      props.setOpen(true)
+      console.log(res)
+      getUsers();
+    })
+  }
+
+
+  // consts for user table
+  const columns = [
+    {
+      Header: 'Firstname',
+      accessor: 'firstname' // accessor is the "key" in the data
+    },
+    {
+      Header: 'Lastname',
+      accessor: 'lastname' // accessor is the "key" in the data
+    },    
+    {
+      Header: 'Phone',
+      accessor: 'phone'  // accessor is the "key" in the data
+    }, 
+    {
+      Header: 'Email',
+      accessor: 'email'  // accessor is the "key" in the data
+    },    
+    {
+      Header: 'City',
+      accessor: 'city'  // accessor is the "key" in the data
+    },
+    {
+      filterable: false,
+      sortable: false,
+      minWidth: 90,
+
+      Cell: row => ( <CustomerPopUp getUsers={getUsers} customer={row.original} setMsg={props.setMsg} setOpen={props.setOpen}  /> )
+    },
+    {
+      filterable: false,
+      sortable: false,
+      minWidth: 90,
+
+      Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}><AiOutlineUserDelete></AiOutlineUserDelete></Button>)
     }
 
+  ]
 
-    // consts for user table
-    const columns = [
-      {
-        Header: 'Firstname',
-        accessor: 'firstname' // accessor is the "key" in the data
-      },
-      {
-        Header: 'Lastname',
-        accessor: 'lastname' // accessor is the "key" in the data
-      },    
-      {
-        Header: 'Phone',
-        accessor: 'phone'  // accessor is the "key" in the data
-      }, 
-      {
-        Header: 'Email',
-        accessor: 'email'  // accessor is the "key" in the data
-      },    
-      {
-        Header: 'City',
-        accessor: 'city'  // accessor is the "key" in the data
-      },
-      {
-        filterable: false,
-        sortable: false,
-        minWidth: 90,
+  return (     
+<>
+       
+  {/* grid to cemter stuff horizontally */}
+  <Grid container  align = "center" justifyContent= "center" alignItems = "center" >
   
-        Cell: row => ( <CustomerPopUp getUsers={getUsers} customer={row.original} setMsg={props.setMsg} setOpen={props.setOpen}  /> )
-      },
-      {
-        filterable: false,
-        sortable: false,
-        minWidth: 90,
-  
-        Cell: row => (<Button variant="contained" color="secondary"  onClick={() => deleteCustomer(row.original.links[0].href)}><AiOutlineUserDelete></AiOutlineUserDelete></Button>)
+      {/* loading feature */}
+      {!loaded && 
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+        </Box>
       }
-
-    ]
-
-    return (
-
-        
-        <>
       
+      {/* displays component to add new customer */}
+      {loaded&&
+        <Paper  style={{marginTop: 10, marginBottom:10}} elevation={2}>
+          <AddCustomer addCustomer={addCustomer} getUsers={getUsers}  ></AddCustomer>
+        </Paper>
+      }
         
 
- 
- {/* grid to cemter stuff horizontally */}
+      {/* displays link to download userdata as a csv file */}
+      {loaded &&
+        <CsvFile data={user}/>
+      }
+        
+        
+  </Grid>
 
-<Grid container  align = "center" justifyContent= "center" alignItems = "center" >
- 
-{/* loading feature */}
-          {
-          !loaded && 
-            <Box sx={{ width: '100%' }}>
-              <LinearProgress />
-            </Box>
-          }
-     
-  {/* displays component to add new customer */}
-          {
-            loaded&&
-            <Paper  style={{marginTop: 10, marginBottom:10}} elevation={2}>
-              <AddCustomer addCustomer={addCustomer} getUsers={getUsers}  ></AddCustomer>
-            </Paper>
-          }
-      
+  {/* displays usertable with given data and columns and buttons to make changes */}
+  {loaded && 
+    <ReactTable filterable={true} defaultPageSize={10} 
+    data={user} columns={columns} />
+  }
 
+  {/* Visual charts */}
+  {loaded &&  
+  <Raport userBoolean={true} trainingBoolean={false}></Raport>
+  }
 
-{/* displays link to download userdata as a csv file */}
-        {
-          loaded &&
-          <CsvFile data={user}/>
-        }
-          
-       
- </Grid>
-{/* displays usertable with given data and columns and buttons to make changes */}
-        {
-          loaded && 
-          <ReactTable filterable={true} defaultPageSize={10} 
-          data={user} columns={columns} />
-        }
-        {
-        loaded &&  
-        <Raport userBoolean={true} trainingBoolean={false}></Raport>
-        }
-       
-        </>
-    )
-}
+</>
+)}

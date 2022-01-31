@@ -15,94 +15,89 @@ export default function Traininglist(props) {
     const [trainings, setTrainings] = React.useState([]);
     const [loaded1, setloaded] = React.useState(false)
     
+    //launches getTrainings on start
+    useEffect(() =>{
+      getTrainings();
+    }, [])
     
-    
-        useEffect(() =>{
-          getTrainings();
-        }, [])
-    
-        // fetches all trainigs with userinformation
-        const getTrainings = () => {
-          axios.get(url+"/gettrainings")
-            .then(response =>{
-                setTrainings(response.data)
-                console.log("trainings: "+response.data)
-                setloaded(true);
-                
-            })
-          .catch(err => console.error(err))
-        }
-        const deleteTraining = async (id) =>{
-          const result = await confirm("Are you sure?");
-          if (result) {
-                axios.delete(url+"api/trainings/"+id)  
-                .then(res => {
-                  props.setMsg("Training deleted!")
-                  props.setOpen(true)
-                  getTrainings()
-                })
-                
-              }
-              console.log("You click No!");
-            }
-    
-    
-        // const colums for training table
-        const columns = [
-          {
-            filterable: false,
-            Header: 'Aika', 
-            accessor: 'date',
-             Cell : (props1)=>{
-              //formatting for date columns
-              const custom_date = dayjs(props1.value).format('DD.MM.YYYY hh:mm')
-              return <span>{custom_date}</span>
-          }
-           
-          },
-          {
-            Header: 'Laji',
-            accessor: 'activity' // accessor is the "key" in the data
-          },    
-          {
-            Header: 'Kesto',
-            accessor: 'duration'  // accessor is the "key" in the data
-          }, 
-          {
-            Header: 'Etunimi',
-            accessor: 'customer.firstname'  // accessor is the "key" in the data
-          }, 
-          {
-            Header: 'Sukunimi',
-            accessor: 'customer.lastname'  // accessor is the "key" in the data
-          },
-          {
-            accessor: 'customer.lastname',  // accessor is the "key" in the data
-            filterable: false,
-            Cell: row => (<Button variant="contained" color="secondary" 
-            onClick={() => deleteTraining(row.original.id)}>  <Delete></Delete> </Button> )
-          }, 
-         
-        ]
-    
-        return (
-    
-            
-            <>
-          {
-          !loaded1 && 
-          <Box sx={{ width: '100%' }}>
-            <LinearProgress />
-          </Box>
-          }
-            {/* table that displays training data */}
-            { 
-              loaded1 && 
-              <ReactTable filterable={true} defaultPageSize={10} 
-              data={trainings} columns={columns} />
-            } 
+    // fetches all trainigs with userinformation
+    const getTrainings = () => {
+      axios.get(url+"/gettrainings")
+        .then(response =>{
+          setTrainings(response.data)
+          setloaded(true);
+          })
+        .catch(err => console.error(err))
+      }
 
-            <Raport userBoolean={false} trainingBoolean={true}></Raport>
-            </>
-        )
+    //Training delete function with confirm
+    const deleteTraining = async (id) =>{
+    const result = await confirm("Are you sure?");
+      if (result) {
+        axios.delete(url+"api/trainings/"+id)  
+          .then(res => {
+            props.setMsg("Training deleted!")
+            props.setOpen(true)
+            getTrainings()
+          })
+      }}
+
+    
+    // const colums for training table
+    // accessor is the "key" in the data!!
+    const columns = [
+      {
+        filterable: false,
+        Header: 'Aika', 
+        accessor: 'date',
+      Cell : (props1)=>{
+        //formatting for date columns
+        const custom_date = dayjs(props1.value).format('DD.MM.YYYY hh:mm')
+        return <span>{custom_date}</span>
+      }
+      },
+      {
+        Header: 'Laji',
+        accessor: 'activity' // training.activity
+      },    
+      {
+        Header: 'Kesto',
+        accessor: 'duration'  // training.duration
+      }, 
+      {
+        Header: 'Etunimi',
+        accessor: 'customer.firstname'  // customer.firstname
+      }, 
+      {
+        Header: 'Sukunimi',
+        accessor: 'customer.lastname'  // customer.lastname
+      },
+      {
+        accessor: 'customer.lastname',  // customer.lastname
+        filterable: false,
+        Cell: row => (<Button variant="contained" color="secondary" 
+        onClick={() => deleteTraining(row.original.id)}>  <Delete></Delete> </Button> )
+      }, 
+      ]
+    
+return (
+<>
+
+    {/* Loading bar */}
+    {!loaded1 && 
+      <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+      </Box>
+    }
+
+    {/* table that displays training data */}
+    {loaded1 && 
+      <ReactTable filterable={true} defaultPageSize={10} data={trainings} columns={columns} />
+    } 
+
+    {/* Visual charts */}
+    <Raport userBoolean={false} trainingBoolean={true}></Raport>
+    
+</>
+)
     }

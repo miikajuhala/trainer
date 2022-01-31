@@ -13,95 +13,81 @@ import { Box, LinearProgress } from "@material-ui/core";
 export default function Calendar(props) {
 
     
-    const [loaded, setloaded] = React.useState(false);
-    var data=[];
-    const url = "https://customerrest.herokuapp.com/"
-    const [trainings, setTrainings] = React.useState([]);
+const [loaded, setloaded] = React.useState(false);
+var data=[];
+const url = "https://customerrest.herokuapp.com/"
+const [trainings, setTrainings] = React.useState([]);
     
 
-    useEffect(() =>{
-        getTrainings();
-
-      }, [])
+useEffect(() =>{
+  getTrainings();
+}, [])
   
-      // fetches all trainigs with userinformation
-    const getTrainings = () => {
-    axios.get(url+"/gettrainings")
-          .then(response =>{
-              setTrainings(response.data)
-              console.log(response.data)
-          })
-          .then(()=>{ 
-            if(trainings!==null){
-              setloaded(true)
-            }
-            else getTrainings();
-            })
-        .catch(err => console.error(err))
+
+// fetches all trainigs with userinformation
+const getTrainings = () => {
+  axios.get(url+"/gettrainings")
+    .then(response =>{
+      setTrainings(response.data)
+      console.log(response.data)
+    })
+    .then(()=>{ 
+      if(trainings!==null){
+        setloaded(true)
       }
-
-      //function to format data in a format directyl suitable to calendar component
-      //TODO: calendar crashes if someone has pushed broken data, training without customer for example.
-      const formatter = ()=>{
-
-           console.log("fdf")
-            trainings.forEach(training => {
-            data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+" "+ training.duration+" Min)",
-             start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
-        })
-
-
-
-      console.log(data)
-    
-return(
-
-<FullCalendar
-
-headerToolbar={{
-  center: 'dayGridMonth,timeGridWeek,timeGridDay',
-}}
-  plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
-  eventClick={handleDateClick}
-  initialView="dayGridMonth"
-  weekends={true}
-  events={data}    
-  />
-        
-);
-      
-
+      else getTrainings();
+    })
+    .catch(err => console.error(err))
 }
 
-    const handleDateClick = (arg) => { // bind with an arrow function
-        props.setMsg(
-              arg.event.title+" "+
-              dayjs(arg.event.start).format('hh:mm') + "-" +
-              dayjs(arg.event.end).format('hh:mm')
-          )
-          props.setOpen(true);
-      }
-    
+//function to format data in a format directyl suitable to calendar component
+//TODO: calendar crashes if someone has pushed broken data, training without customer for example.
+const formatter = ()=>{
+  trainings.forEach(training => {
+    data.push({title: training.activity +" ("+ training.customer.firstname +" "+training.customer.lastname+" "+ training.duration+" Min)",
+    start: dayjs(training.date).format('YYYY-MM-DD hh:mm'), end: dayjs(moment(training.date).add(training.duration, "minutes")).format('YYYY-MM-DD hh:mm') })
+})
+  return(
 
-    return (
-    <>
-
-
-      {loaded &&
-      <div>{formatter()}</div>
-      }
-      
-      {
-      !loaded && 
-      <Box sx={{ width: '100%' }}>
-        <LinearProgress />
-      </Box>
-    }
-     
+    <FullCalendar headerToolbar={{
+      center: 'dayGridMonth,timeGridWeek,timeGridDay',
+    }}
+      plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin]}
+      eventClick={handleDateClick}
+      initialView="dayGridMonth"
+      weekends={true}
+      events={data}    
+    />
+  );     
+}
 
 
-  </>
 
-    
+const handleDateClick = (arg) => { // bind with an arrow function
+  props.setMsg(
+      arg.event.title+" "+
+      dayjs(arg.event.start).format('hh:mm') + "-" +
+      dayjs(arg.event.end).format('hh:mm')
     )
+  props.setOpen(true);
+}
+    
+
+return (
+<>
+
+  {/* launches formatter funtion that renders */}
+  {loaded && 
+  <div>{formatter()}</div>
+  }
+
+
+  {!loaded && 
+  <Box sx={{ width: '100%' }}>
+    <LinearProgress />
+  </Box>
+  }
+
+</>
+)
 }

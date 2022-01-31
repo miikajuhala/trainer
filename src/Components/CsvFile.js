@@ -8,16 +8,14 @@ export default function CsvFile(props){
   
 
 
-    return(
-         <CSVLink
-          data={props.data} 
-          filename={"userfile.csv"}
-          className="btn btn-primary">
-          <Button color="primary" size="large"><FaFileDownload/></Button>
-          </CSVLink>   
-        
-        );
-
+return(
+  <CSVLink
+  data={props.data} 
+  filename={"userfile.csv"}
+  className="btn btn-primary">
+    <Button color="primary" size="large"><FaFileDownload/></Button>
+  </CSVLink>   
+);
 }
 
 
